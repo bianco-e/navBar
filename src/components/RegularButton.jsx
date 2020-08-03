@@ -1,11 +1,24 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import DropdownItems from "./DropdownItems";
 
 export default function RegularButton({ handleClick, items, title }) {
   const [showDropdown, setShowDropdown] = useState(false);
-
   const buttonRef = useRef();
+
+  useEffect(() => {
+    showDropdown && document.addEventListener("click", handleDropdown);
+    return () => {
+      document.removeEventListener("click", handleDropdown);
+    };
+  }, [showDropdown]);
+
+  const style = {
+    bgColor: "#dc3545",
+    color: "#fff",
+    hoverColor: "#ff5757",
+    size: 3,
+  };
 
   const handleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -14,9 +27,10 @@ export default function RegularButton({ handleClick, items, title }) {
   return (
     <>
       <Button
-        bgColor="#dc3545"
-        color="white"
-        onClick={handleClick === "dropdown" ? handleDropdown : handleClick}
+        bgColor={style.bgColor}
+        color={style.color}
+        hoverColor={style.hoverColor}
+        onClick={items ? handleDropdown : handleClick}
         ref={buttonRef}
       >
         {title}
@@ -45,7 +59,7 @@ const Button = styled.button({
   transition: "opacity 0.3s ease",
   ["&:hover"]: {
     opacity: "0.8",
-    borderBottom: "2px solid #ff5757",
+    borderBottom: (props) => `2px solid ${props.hoverColor}`,
     marginBottom: "-2px",
   },
   ["&:active"]: {

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 export default function DropdownItems({ items, position }) {
   return (
     <Container top={position.top} left={position.left}>
       {items.map((item) => (
-        <Item key={item}>{item}</Item>
+        <Item key={item.name}>
+          <Link href={item.to}>{item.name}</Link>
+        </Item>
       ))}
     </Container>
   );
@@ -13,7 +15,9 @@ export default function DropdownItems({ items, position }) {
 
 const Container = styled.section({
   alignItems: "flex-start",
+  backgroundColor: "white",
   border: "1px solid rgba(200, 200, 200, .3)",
+  boxShadow: "0 0 7px rgba(170, 170, 170, .3)",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -36,4 +40,8 @@ const Item = styled.section({
   ["&:active"]: {
     backgroundColor: "#ff5757",
   },
+});
+const Link = styled.a({
+  color: "black",
+  textDecoration: "none",
 });
