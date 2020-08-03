@@ -1,13 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function DropdownItems({ items, position }) {
+export default function DropdownItems({ items, position, style }) {
   return (
     <Container top={position.top} left={position.left}>
       {items.map((item) => (
-        <Item key={item.name}>
-          <Link href={item.to}>{item.name}</Link>
-        </Item>
+        <Link href={item.to}>
+          <Item
+            key={item.name}
+            bgColor={style.hoverColor}
+            fSize={`${style.size - 1}px`}
+          >
+            {item.name}
+          </Item>
+        </Link>
       ))}
     </Container>
   );
@@ -28,7 +34,7 @@ const Container = styled.section({
 });
 const Item = styled.section({
   cursor: "pointer",
-  fontSize: "14px",
+  fontSize: (props) => props.fSize || "14",
   margin: "0",
   padding: ".5rem",
   transition: "opacity 0.3 ease-in-out",
@@ -38,10 +44,11 @@ const Item = styled.section({
     opacity: "0.8",
   },
   ["&:active"]: {
-    backgroundColor: "#ff5757",
+    backgroundColor: (props) => props.bgColor,
   },
 });
 const Link = styled.a({
   color: "black",
   textDecoration: "none",
+  width: "100%",
 });

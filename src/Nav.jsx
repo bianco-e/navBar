@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import RegularButton from "./components/RegularButton";
 
@@ -17,14 +17,26 @@ export default function App() {
 
   const onClickFn = () => {};
 
+  const style = {
+    bgColor: "#dc3545",
+    color: "#fff",
+    hoverColor: "#ff5757",
+    size: 12,
+  };
+
   return (
     <Container>
       {buttons.map((button) => {
         return (
-          <RegularButton key={button} title={button} handleClick={onClickFn} />
+          <RegularButton
+            key={button}
+            title={button}
+            handleClick={onClickFn}
+            style={style}
+          />
         );
       })}
-      <RegularButton title="NUESTROS SERVICIOS" items={items} />
+      <RegularButton title="SERVICIOS" items={items} style={style} />
     </Container>
   );
 }
@@ -33,7 +45,6 @@ const Container = styled.div({
   alignItems: "center",
   display: "flex",
   justifyContent: "flex-start",
-  maxWidt: "1024px",
   position: "relative",
   width: (props) => props.width,
 });

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import DropdownItems from "./DropdownItems";
 
-export default function RegularButton({ handleClick, items, title }) {
+export default function RegularButton({ handleClick, items, style, title }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const buttonRef = useRef();
 
@@ -13,13 +13,6 @@ export default function RegularButton({ handleClick, items, title }) {
     };
   }, [showDropdown]);
 
-  const style = {
-    bgColor: "#dc3545",
-    color: "#fff",
-    hoverColor: "#ff5757",
-    size: 3,
-  };
-
   const handleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
@@ -29,6 +22,7 @@ export default function RegularButton({ handleClick, items, title }) {
       <Button
         bgColor={style.bgColor}
         color={style.color}
+        fSize={`${style.size}px`}
         hoverColor={style.hoverColor}
         onClick={items ? handleDropdown : handleClick}
         ref={buttonRef}
@@ -42,6 +36,7 @@ export default function RegularButton({ handleClick, items, title }) {
             top: `${buttonRef.current.offsetHeight - 2}px`,
             left: `${buttonRef.current.offsetLeft}px`,
           }}
+          style={style}
         />
       )}
     </>
@@ -52,7 +47,7 @@ const Button = styled.button({
   backgroundColor: (props) => props.bgColor,
   color: (props) => props.color,
   padding: "1%",
-  fontSize: "15px",
+  fontSize: (props) => props.fSize || "15px",
   cursor: "pointer",
   border: "0",
   fontWeight: "800",
@@ -63,6 +58,6 @@ const Button = styled.button({
     marginBottom: "-2px",
   },
   ["&:active"]: {
-    boxShadow: "0 0 2px rgba(200, 200, 200, 0.9)",
+    boxShadow: "0 0 1px rgba(200, 200, 200, 0.9)",
   },
 });
