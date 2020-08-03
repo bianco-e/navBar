@@ -1,16 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function DropdownItems({ items, position, style }) {
+export default function DropdownItems({ items, style }) {
   return (
-    <Container top={position.top} left={position.left}>
+    <Container>
       {items.map((item) => (
-        <Link href={item.to}>
-          <Item
-            key={item.name}
-            bgColor={style.hoverColor}
-            fSize={`${style.size - 1}px`}
-          >
+        <Link key={item.name} href={item.to}>
+          <Item bgColor={style.hoverColor} fSize={`${style.size - 1}px`}>
             {item.name}
           </Item>
         </Link>
@@ -27,10 +23,7 @@ const Container = styled.section({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  left: (props) => props.left,
   overflow: "hidden",
-  position: "absolute",
-  top: (props) => props.top,
 });
 const Item = styled.section({
   cursor: "pointer",
